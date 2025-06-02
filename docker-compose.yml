@@ -1,13 +1,18 @@
-version: '3.9'
+version: "3.9"
 
 services:
-  app:
-    build: .
-    ports:
-      - "3000:3000"
+  furigana-dev:
+    container_name: furigana_dev_container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: furigana-dev:latest
     volumes:
       - .:/app
-      - /app/node_modules  # 避免冲突
+      - /app/node_modules  # 避免宿主机 node_modules 污染
+    ports:
+      - "3000:3000"
+    working_dir: /app
     tty: true
     environment:
       - NEXT_TELEMETRY_DISABLED=1
